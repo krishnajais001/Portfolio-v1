@@ -320,21 +320,36 @@
       .btn-nav-contact {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 6px;
-        background: var(--surface);
-        color: var(--text);
-        border: 1px solid var(--border-light);
-        padding: 7px 14px;
+        color: var(--accent);
+        border: 1px solid rgba(212, 168, 67, 0.35);
+        padding: 7px 16px;
         font-size: 12px;
         font-weight: 500;
-        letter-spacing: 0.04em;
-        cursor: pointer;
-        transition: all 0.2s;
+        letter-spacing: 0.05em;
+        text-decoration: none;
+        transition: all 0.2s ease;
         white-space: nowrap;
+        background: rgba(212, 168, 67, 0.04);
+        cursor: pointer;
+        font-family: inherit;
+        border-radius: 9999px;
+        box-shadow: 0 0 16px rgba(212, 168, 67, 0.15);
       }
-      .btn-nav-contact:hover {
-        color: var(--accent);
-        border-color: rgba(212, 168, 67, 0.4);
+      .btn-nav-contact:hover,
+      .btn-nav-contact.active {
+        background: var(--accent);
+        color: #080808;
+        border-color: var(--accent);
+        box-shadow: 0 0 20px rgba(212, 168, 67, 0.35);
+      }
+      .btn-nav-contact .btn-arrow {
+        display: inline-block;
+        transition: transform 0.2s ease;
+      }
+      .btn-nav-contact:hover .btn-arrow {
+        transform: translateX(3px);
       }
 
       /* Mobile Menu Toggle */
@@ -580,7 +595,6 @@
         border-color: #3b3b3b;
       }
 
-
       /* ── PAGE HEADERS ────────────────────────────── */
       .page-head {
         padding: 64px 0 36px;
@@ -668,7 +682,7 @@
       .about-photo-frame {
         width: 175px;
         height: 175px;
-        border-radius: 4px;
+        border-radius: 50%;
         overflow: hidden;
         border: 1px solid rgba(212, 168, 67, 0.45);
         background: var(--surface-dim, #131313);
@@ -693,6 +707,7 @@
         object-fit: cover;
         object-position: center top;
         display: block;
+        border-radius: 50%;
       }
       .about-photo-status {
         display: inline-flex;
@@ -783,6 +798,16 @@
         color: var(--text-mid);
         line-height: 1.75;
         margin-bottom: 14px;
+      }
+      .about-text p {
+        font-size: 14px;
+        color: var(--text-mid);
+        line-height: 1.75;
+        margin-bottom: 14px;
+      }
+      .about-text strong {
+        color: var(--text);
+        font-weight: 600;
       }
       .bullet-list {
         list-style: none;
@@ -1041,7 +1066,8 @@
       }
       .foot-copy {
         font-size: 13.5px;
-        color: var(--text-dim);
+        font-weight: 700;
+        color: #ffffff;
       }
       .socials {
         display: flex;
@@ -1049,9 +1075,10 @@
         flex-wrap: wrap;
       }
       .socials a {
-        color: var(--text);
+        color: #ffffff;
+        font-weight: 700;
         text-decoration: none;
-        font-size: 13px;
+        font-size: 13.5px;
         letter-spacing: 0.04em;
         transition: color 0.2s;
       }
@@ -1174,15 +1201,10 @@
         </ul>
 
         <div class="nav-actions">
-          <!-- Resume Download / View Button -->
-          <a
-            class="btn-nav-resume"
-            id="resumeNavBtn"
-            href="https://drive.google.com/file/d/1VjDkTAx6UWxQnYsgsyTsP3gCa0ANKHsV/view"
-            target="_blank"
-            rel="noopener"
-          >
-            <span>Resume ⤓</span>
+          <!-- Get in Touch CTA -->
+          <a class="btn-nav-contact" id="nl-contact" onclick="go('contact')">
+            <span>Get in Touch</span>
+            <span class="btn-arrow">→</span>
           </a>
         </div>
       </div>
@@ -1195,7 +1217,8 @@
       <div class="container">
         <div class="home-wrap">
           <h1 class="home-name" id="heroTypewriter">
-            <span id="typeText">Full Stack &amp; AI Engineer .</span><span class="type-cursor">|</span>
+            <span id="typeText">Full Stack &amp; AI Engineer .</span
+            ><span class="type-cursor">|</span>
           </h1>
 
           <!-- Status badges pill row -->
@@ -1209,15 +1232,25 @@
             <span class="hbadge">📍 Gurugram, India</span>
           </div>
           <p class="home-bio">
-  I build <strong>production-grade full-stack products and AI agents</strong> end to end that are fast, reliable, and built to scale. Currently an <strong>AI Engineer Intern at Quild</strong>, turning complex problems into clean, well-architected systems that ship. <strong>AIR 13 in GGSIPU CET</strong>, with a systems-design mindset behind everything I build.
-</p>
+            I build
+            <strong>production-grade full-stack products and AI agents</strong>
+            end to end that are fast, reliable, and built to scale. Currently an
+            <strong>AI Engineer Intern at Quild</strong>, turning complex
+            problems into clean, well-architected systems that ship.
+            <strong>AIR 13 in GGSIPU CET</strong>, with a systems-design mindset
+            behind everything I build.
+          </p>
 
           <div class="home-actions">
             <span class="btn-gold" onclick="go('projects')"
               >Explore Projects &nbsp;→</span
             >
-            <span class="btn-outline" onclick="go('contact')"
-              >Get in Touch</span
+            <a
+              class="btn-outline"
+              href="https://drive.google.com/file/d/1VjDkTAx6UWxQnYsgsyTsP3gCa0ANKHsV/view"
+              target="_blank"
+              rel="noopener"
+              >Resume ⤓</a
             >
           </div>
         </div>
@@ -1262,7 +1295,10 @@
                   />
                 </div>
                 <div class="about-photo-status">
-                  <span class="eyebrow-dot" style="width: 5px; height: 5px"></span>
+                  <span
+                    class="eyebrow-dot"
+                    style="width: 5px; height: 5px"
+                  ></span>
                   <span>AI &amp; Full Stack</span>
                 </div>
               </div>
@@ -1270,20 +1306,45 @@
               <div class="about-hero-text">
                 <div class="card-top">
                   <h3 class="card-title">Krishna Jaiswal</h3>
-                  <span class="tag-badge accent">Full Stack &amp; AI Engineer</span>
+                  <span class="tag-badge accent"
+                    >Full Stack &amp; AI Engineer</span
+                  >
                 </div>
                 <p class="card-subtitle">
-                  B.Tech in Computer Science &amp; Engineering · USICT, GGSIPU '28
+                  B.Tech in Computer Science &amp; Engineering · USICT, GGSIPU
+                  '28
                 </p>
                 <div class="about-quote-box">
-                  “What sets me apart is my ability to break down complex problems and turn them into practical, real-world solutions — from intuitive user interfaces to robust backend systems.”
+                  “What sets me apart is my ability to break down complex
+                  problems and turn them into practical, real-world solutions —
+                  from intuitive user interfaces to robust backend systems.”
                 </div>
-                <p class="card-desc">
-                  I’m a Software Developer focused on building scalable, high-performance, and user-centric web applications. Currently pursuing B.Tech in Computer Science &amp; Engineering, I have hands-on experience with React.js, Node.js, and Generative AI, enabling me to develop modern full-stack applications and explore AI-powered solutions.
-                </p>
-                <p class="card-desc">
-                  I approach development with a strong emphasis on clean architecture, system design, and performance optimization, ensuring that the products I build are not just functional, but efficient and scalable.
-                </p>
+                <div class="about-text">
+                  <p>
+                    I'm a <strong>Full Stack & AI Engineer</strong> and a B.Tech
+                    CSE student at GGSIPU (USICT '28). I'm currently an
+                    <strong>AI Engineer Intern at Quild</strong>, where I build
+                    RESTful APIs, backend workflows, and reusable internal
+                    libraries for production applications. Before that, I
+                    trained in the <strong>MERN stack</strong> and
+                    <strong>Data Structures & Algorithms in C++</strong> at Code
+                    Help, which gave me both the engineering fundamentals and
+                    the product-building habit.
+                  </p>
+                  <p>
+                    I like breaking down messy problems and turning them into
+                    <strong>clean, well-architected systems</strong>, from the
+                    interface to the backend to the AI layer. I also contribute
+                    to open source through
+                    <strong>GirlScript Summer of Code 2026</strong>. I'm looking
+                    for
+                    <strong
+                      >internships, freelance work, and collaborations</strong
+                    >
+                    on AI-driven products, so if you're building something
+                    exciting, let's talk.
+                  </p>
+                </div>
                 <div class="card-tags">
                   <span class="tag-badge live">● Open to Work</span>
                   <span class="tag-badge">AI Engineer Intern @ Quild</span>
@@ -1295,9 +1356,11 @@
           </div>
 
           <!-- Section: What I Bring -->
-          <div style="margin-top: 36px; margin-bottom: 14px;">
-            <p class="eyebrow-text" style="margin-bottom: 6px;">Core Competencies</p>
-            <h3 class="card-title" style="font-size: 20px;">What I Bring</h3>
+          <div style="margin-top: 36px; margin-bottom: 14px">
+            <p class="eyebrow-text" style="margin-bottom: 6px">
+              Core Competencies
+            </p>
+            <h3 class="card-title" style="font-size: 20px">What I Bring</h3>
           </div>
           <div class="about-grid-2">
             <div class="about-mini-card">
@@ -1305,7 +1368,9 @@
                 <span>🧠</span> Strong Problem-Solving Mindset
               </div>
               <p class="about-mini-text">
-                Practicing Data Structures &amp; Algorithms in C++, active problem solver on LeetCode, with a sharp focus on writing optimized, efficient, and well-structured code.
+                Practicing Data Structures &amp; Algorithms in C++, active
+                problem solver on LeetCode, with a sharp focus on writing
+                optimized, efficient, and well-structured code.
               </p>
             </div>
             <div class="about-mini-card">
@@ -1313,7 +1378,9 @@
                 <span>🏛️</span> Solid System Design Fundamentals
               </div>
               <p class="about-mini-text">
-                Emphasis on clean architecture, modular services, RESTful API design, database schemas (MongoDB, Supabase, relational DBs), and backend scalability.
+                Emphasis on clean architecture, modular services, RESTful API
+                design, database schemas (MongoDB, Supabase, relational DBs),
+                and backend scalability.
               </p>
             </div>
             <div class="about-mini-card">
@@ -1321,7 +1388,9 @@
                 <span>⚡</span> Modern Web &amp; AI Technologies
               </div>
               <p class="about-mini-text">
-                Hands-on development with React.js, Node.js, Express, LangGraph, LangChain, vector databases, and multi-agent autonomous automation pipelines.
+                Hands-on development with React.js, Node.js, Express, LangGraph,
+                LangChain, vector databases, and multi-agent autonomous
+                automation pipelines.
               </p>
             </div>
             <div class="about-mini-card">
@@ -1329,36 +1398,72 @@
                 <span>🚀</span> Continuous Learning &amp; Adaptability
               </div>
               <p class="about-mini-text">
-                Thriving in fast-paced environments, continuously expanding into cutting-edge AI engineering and distributed systems, and shipping production applications.
+                Thriving in fast-paced environments, continuously expanding into
+                cutting-edge AI engineering and distributed systems, and
+                shipping production applications.
               </p>
             </div>
           </div>
 
           <!-- Section: Seeking Opportunities -->
-          <div style="margin-top: 36px; margin-bottom: 14px;">
-            <p class="eyebrow-text" style="margin-bottom: 6px;">Trajectory &amp; Focus</p>
-            <h3 class="card-title" style="font-size: 20px;">Actively Seeking Opportunities Where I Can</h3>
+          <div style="margin-top: 36px; margin-bottom: 14px">
+            <p class="eyebrow-text" style="margin-bottom: 6px">
+              Trajectory &amp; Focus
+            </p>
+            <h3 class="card-title" style="font-size: 20px">
+              Actively Seeking Opportunities Where I Can
+            </h3>
           </div>
           <div class="item-card">
-            <ul class="bullet-list" style="margin: 0;">
-              <li><strong>Contribute to impactful, real-world products</strong> — solving complex challenges through scalable software and clean code.</li>
-              <li><strong>Work on full-stack and AI-driven systems</strong> — bridging responsive user interfaces with resilient backend services and intelligent LLM workflows.</li>
-              <li><strong>Grow in fast-paced, high-impact environments</strong> — collaborating closely with engineering teams and shipping code to production.</li>
+            <ul class="bullet-list" style="margin: 0">
+              <li>
+                <strong>Contribute to impactful, real-world products</strong> —
+                solving complex challenges through scalable software and clean
+                code.
+              </li>
+              <li>
+                <strong>Work on full-stack and AI-driven systems</strong> —
+                bridging responsive user interfaces with resilient backend
+                services and intelligent LLM workflows.
+              </li>
+              <li>
+                <strong>Grow in fast-paced, high-impact environments</strong> —
+                collaborating closely with engineering teams and shipping code
+                to production.
+              </li>
             </ul>
           </div>
 
           <!-- Availability & CTA -->
-          <div class="item-card featured" style="margin-top: 24px;">
+          <div class="item-card featured" style="margin-top: 24px">
             <div class="card-top">
-              <span class="card-title" style="font-size: 16px;">Open to internships, freelance work, and collaborations.</span>
-              <span style="font-family: 'Fira Code', monospace; color: var(--accent); font-size: 13px;">&lt; Krishna /&gt;</span>
+              <span class="card-title" style="font-size: 16px"
+                >Open to internships, freelance work, and collaborations.</span
+              >
+              <span
+                style="
+                  font-family: &quot;Fira Code&quot;, monospace;
+                  color: var(--accent);
+                  font-size: 13px;
+                "
+                >&lt; Krishna /&gt;</span
+              >
             </div>
-            <p class="card-desc" style="margin: 10px 0 18px;">
-              Let’s connect if you’re building something exciting — I’d love to contribute.
+            <p class="card-desc" style="margin: 10px 0 18px">
+              Let’s connect if you’re building something exciting — I’d love to
+              contribute.
             </p>
             <div class="home-actions">
-              <span class="btn-gold" onclick="go('projects')">Explore Projects &nbsp;→</span>
-              <span class="btn-outline" onclick="go('contact')">Get in Touch</span>
+              <span class="btn-gold" onclick="go('projects')"
+                >Explore Projects &nbsp;→</span
+              >
+              <a
+                class="btn-outline"
+                href="https://drive.google.com/file/d/1VjDkTAx6UWxQnYsgsyTsP3gCa0ANKHsV/view"
+                target="_blank"
+                rel="noopener"
+                >Resume ⤓</a
+              >
             </div>
           </div>
         </div>
@@ -1462,7 +1567,7 @@
       <div class="container">
         <div class="page-head">
           <p class="page-num">04 — Core Competencies</p>
-          <h2 class="page-title">Skills &amp; Technologies</h2>
+          <h2 class="page-title">Tech Stack &amp; Skills</h2>
           <p class="page-sub">
             specialized knowledge in AI/GenAI, system architecture, programming
             languages, databases, and DevOps
@@ -1526,28 +1631,10 @@
         <div class="contact-grid">
           <div class="contact-card">
             <p class="contact-card-title">Primary Email</p>
-            <a class="contact-link" href="mailto:jais620481@gmail.com"
-              >jais620481@gmail.com</a
-            >
-            <p class="contact-note">Direct inbox for professional inquiries</p>
-          </div>
-
-          <div class="contact-card">
-            <p class="contact-card-title">Alternative Email</p>
             <a class="contact-link" href="mailto:jaiskrishna06@gmail.com"
               >jaiskrishna06@gmail.com</a
             >
-            <p class="contact-note">Active secondary contact</p>
-          </div>
-
-          <div class="contact-card">
-            <p class="contact-card-title">Location</p>
-            <p class="contact-link" style="cursor: default">
-              Gurugram, Haryana, India
-            </p>
-            <p class="contact-note">
-              House No. 124, B-Block, South City–1, Sector 30 (122001)
-            </p>
+            <p class="contact-note">Direct inbox for professional inquiries</p>
           </div>
 
           <div class="contact-card">
@@ -1654,7 +1741,7 @@
           headline:
             "CSE GGSIPU '28 | Building Scalable AI-Powered Apps | Open to Work",
           location: "Gurugram, Haryana, India",
-          emails: ["jais620481@gmail.com", "jaiskrishna06@gmail.com"],
+          emails: ["jaiskrishna06@gmail.com"],
           linkedin: "https://www.linkedin.com/in/krishnajaiswal06/",
           github: "https://github.com/krishnajais001/",
           leetcode: "https://leetcode.com/u/krishnajais06/",
@@ -1732,7 +1819,7 @@
           },
           {
             company: "Code Help",
-            role: "Student Intern",
+            role: "Full Stack Development Trainee",
             period: "April 2025 – Present (1 yr 7 mos)",
             location: "Gurugram, India",
             featured: false,
@@ -1791,7 +1878,7 @@
               "Supabase",
               "Excalidraw API",
             ],
-            link: "https://github.com/krishnajais001/",
+            link: "https://motion-frontend.onrender.com/",
             status: "Live",
           },
           {
@@ -1834,38 +1921,17 @@
 
         skills: [
           {
-            category: "Top Skills & GenAI",
-            primary: true,
-            badge: "Specialized",
-            items: [
-              "LangGraph",
-              "LangChain",
-              "Generative AI",
-              "RAG Pipelines",
-              "Multi-Agent Systems",
-              "Amazon Web Services (AWS)",
-              "CI/CD Pipelines",
-            ],
-          },
-          {
-            category: "Programming Languages",
+            category: "Languages",
             primary: false,
             badge: "Core",
-            items: [
-              "C++",
-              "Python",
-              "Java",
-              "JavaScript (ES6+)",
-              "TypeScript",
-              "SQL",
-            ],
+            items: ["C++", "Python", "Java", "JavaScript", "TypeScript"],
           },
           {
-            category: "Frontend Engineering",
+            category: "Frontend",
             primary: false,
-            badge: "Modern Web",
+            badge: "UI / Web",
             items: [
-              "React.js",
+              "React",
               "Next.js",
               "HTML5",
               "CSS3",
@@ -1874,55 +1940,62 @@
             ],
           },
           {
-            category: "Backend & Architecture",
+            category: "Backend",
             primary: false,
-            badge: "Server",
+            badge: "Server & API",
             items: [
               "Node.js",
               "Express.js",
-              "RESTful APIs",
-              "JWT Auth",
+              "REST APIs",
+              "JWT",
               "Microservices",
-              "Clean Architecture",
-              "System Design",
             ],
           },
           {
-            category: "Databases & Storage",
+            category: "Databases",
             primary: false,
-            badge: "Data",
-            items: [
-              "PostgreSQL",
-              "MongoDB",
-              "MySQL",
-              "Supabase",
-              "Vector Databases (Pinecone, Chroma)",
-            ],
+            badge: "Storage",
+            items: ["PostgreSQL", "MongoDB", "MySQL", "Supabase"],
           },
           {
-            category: "DevOps & Tools",
-            primary: false,
-            badge: "Tooling",
+            category: "AI / GenAI",
+            primary: true,
+            badge: "Specialized",
             items: [
-              "Git & GitHub",
-              "Postman",
-              "VS Code",
-              "Docker",
-              "Kubernetes",
-              "GitHub Actions",
+              "LangChain",
+              "OpenAI API",
+              "Claude API",
+              "RAG",
+              "Vector Databases",
+              "AI Agents",
               "n8n",
             ],
           },
           {
-            category: "Computer Science Fundamentals",
+            category: "Tools & Cloud",
             primary: false,
-            badge: "Theory",
+            badge: "DevOps & Cloud",
             items: [
-              "Data Structures & Algorithms",
-              "Object-Oriented Programming (OOPs)",
-              "Database Management Systems (DBMS)",
+              "Git",
+              "Postman",
+              "VS Code",
+              "AWS",
+              "Docker",
+              "Kubernetes",
+              "GitHub Actions",
+            ],
+          },
+          {
+            category: "CS Fundamentals",
+            primary: false,
+            badge: "Theory & Systems",
+            items: [
+              "DSA",
+              "OOPs",
+              "DBMS",
               "Operating Systems",
               "Computer Networks",
+              "System Design",
             ],
           },
         ],
@@ -2035,7 +2108,9 @@
       }
 
       function renderProjects() {
-        const el = document.getElementById("projectsList") || document.getElementById("WorkList");
+        const el =
+          document.getElementById("projectsList") ||
+          document.getElementById("WorkList");
         if (!el) return;
         const list = DATA.projects || DATA.Work || [];
         el.innerHTML = list
@@ -2190,7 +2265,7 @@
           "Hi Krishna, I would like to get in touch.";
 
         const body = `Name: ${name}\n\n${message}`;
-        const mailtoUrl = `mailto:jais620481@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailtoUrl = `mailto:jaiskrishna06@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         window.location.href = mailtoUrl;
       }
 
@@ -2200,7 +2275,7 @@
       const HERO_PHRASES = [
         "Full Stack & AI Engineer .",
         "Building full-stack products & AI agents .",
-        "Open to SDE / AI Roles .",
+        "Open to SDE & AI Roles .",
       ];
       let phraseIdx = 0;
       let charIdx = HERO_PHRASES[0].length;
